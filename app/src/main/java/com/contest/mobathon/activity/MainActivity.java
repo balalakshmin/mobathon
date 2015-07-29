@@ -80,16 +80,16 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         String title = getString(R.string.app_name);
         switch (position) {
             case 0:
-                fragment = new HomeFragment();
-                title = getString(R.string.title_address);
+                fragment = new LoanFragment();
+                title = getString(R.string.title_loan);
                 break;
             case 1:
-                fragment = new FriendsFragment();
+                fragment = new ReferFragment();
                 title = getString(R.string.title_referals);
                 break;
             case 2:
-                fragment = new MessagesFragment();
-                title = getString(R.string.title_loan);
+                fragment = new AddressFragment();
+                title = getString(R.string.title_address);
                 break;
             default:
                 break;

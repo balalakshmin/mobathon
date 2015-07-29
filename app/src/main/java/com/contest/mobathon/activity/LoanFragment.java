@@ -1,5 +1,7 @@
 package com.contest.mobathon.activity;
 
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,10 +11,9 @@ import android.view.ViewGroup;
 import com.contest.mobathon.R;
 
 
-public class MessagesFragment extends Fragment {
+public class LoanFragment extends Fragment {
 
-
-    public MessagesFragment() {
+    public LoanFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +26,20 @@ public class MessagesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_messages, container, false);
+        return rootView;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 }
