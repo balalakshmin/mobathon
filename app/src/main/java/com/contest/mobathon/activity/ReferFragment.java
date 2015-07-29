@@ -28,22 +28,13 @@ public class ReferFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_refer, container, false);
-        Button btn = (Button) view.findViewById(R.id.button_refer);
-        Button btn2 = (Button) view.findViewById(R.id.button_user);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        View view= inflater.inflate(R.layout.fragment_refer, container, false);
+        Button button= (Button) view.findViewById(R.id.button1);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), AdminActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), UserActivity.class);
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(),LoginActivity.class);
                 startActivity(intent);
             }
         });

@@ -19,4 +19,13 @@
     <string name="title_loan">Check eligibility</string>
     <string name="title_referals">Referals</string>
     <string name="title_address">Address verification</string>
+    <string name="Login">Login</string>
+    <string name="Username">Username</string>
+    <string name="App">App</string>
+    <string name="Role">Role</string>
+    <string name="LoginRole">LoginRole</string>
+    <string name="LoginStatus">LoginStatus</string>
+    <string name="Status">Status</string>
+    <string name="Password">Password</string>
+    <string name="Choose">Choose</string>
 </resources>
