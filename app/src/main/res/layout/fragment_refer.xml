@@ -5,5 +5,20 @@
     android:orientation="vertical"
     tools:context="com.contest.mobathon.activity.ReferFragment">
 
-    
+
+    <Button
+        android:id="@+id/button_refer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Refer"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button_user"
+        android:layout_below="@+id/button_refer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
