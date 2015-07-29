@@ -1,30 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.contest.mobathon.activity.AddressFragment">
+    tools:context="com.contest.mobathon.activity.AddressFragment"
+    >
 
 
     <TextView
-        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Street"
+        android:id="@+id/textView"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="43dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
-        android:layout_width="fill_parent"
+        android:layout_toStartOf="@id/checkbox" />
+
+    <com.rey.material.widget.EditText
+        android:id="@+id/street"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="45dp"
-        android:text="MESSAGES"
-        android:textStyle="bold" />
+        android:inputType="text"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toEndOf="@+id/textView2" />
 
     <TextView
-        android:layout_below="@id/label"
-        android:layout_centerInParent="true"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="Edit fragment_messages.xml to change the appearance" />
+        android:text="Landmark"
+        android:id="@+id/textView2"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="43dp" />
+    <com.rey.material.widget.EditText
+        android:id="@+id/landmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_alignStart="@+id/street" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:paddingLeft="10dp"
+        android:textSize="20dp"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="47dp" />
+
+    <com.rey.material.widget.EditText
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignStart="@+id/street" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content"
+        android:text="Pincode"
+        android:textSize="20dp"
+        android:layout_below="@+id/textView3"
+        android:id="@+id/textView4"
+        android:layout_marginTop="47dp"
+        android:layout_alignStart="@+id/textView3" />
+
+    <com.rey.material.widget.EditText
+        android:id="@+id/pincode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_alignStart="@+id/location" />
+
+    <com.rey.material.widget.CheckedTextView
+        android:id="@id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Material.Drawable.CheckBox"
+        android:text="I agree to send the above details"
+        android:layout_below="@+id/pincode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp" />
+
 
 </RelativeLayout>
