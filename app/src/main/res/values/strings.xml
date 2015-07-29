@@ -5,18 +5,18 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="nav_item_home">Home</string>
-    <string name="nav_item_friends">Friends</string>
-    <string name="nav_item_notifications">Messages</string>
+    <string name="nav_item_loan">Loans</string>
+    <string name="nav_item_referels">Referals</string>
+    <string name="nav_item_address">Address verification</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
-        <item>@string/nav_item_home</item>
-        <item>@string/nav_item_friends</item>
-        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_loan</item>
+        <item>@string/nav_item_referels</item>
+        <item>@string/nav_item_address</item>
     </string-array>
 
-    <string name="title_messages">Messages</string>
-    <string name="title_friends">Friends</string>
-    <string name="title_home">Home</string>
+    <string name="title_loan">Check eligibility</string>
+    <string name="title_referals">Referals</string>
+    <string name="title_address">Address verification</string>
 </resources>
