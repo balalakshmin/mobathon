@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.contest.mobathon.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +23,15 @@ public class ReferalsActivity extends ActionBarActivity {
 
     private Toolbar mToolbar;
     private ListView list;
+    private ArrayList<String> names;
+    private ArrayList<String> status;
     SessionManager session;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.referals_activity);
         session = new SessionManager(getApplicationContext());
+
         mToolbar = (Toolbar) findViewById(R.id.referel_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -40,6 +45,8 @@ public class ReferalsActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         String name = extras.getString("name");
         int point = extras.getInt("points");
+        names = extras.getStringArrayList("refnames");
+        status = extras.getStringArrayList("status");
 
         userName.setText(name);
         points.setText(Integer.toString(point));
@@ -47,43 +54,9 @@ public class ReferalsActivity extends ActionBarActivity {
         initListView();
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-        if(!session.isLoggedIn()) {
-            menu.getItem(0).setEnabled(false);
-        }
-        return super.onPrepareOptionsMenu(menu);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-
-        if(id == R.id.action_signout){
-            session.logoutUser();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     private void initListView()
     {
-        final String   referal    = "Referral person";
-        final String   status = "Status";
 
         final String[] matrix  = { "_id", "name", "value" };
         final String[] columns = { "name", "value" };
@@ -91,8 +64,9 @@ public class ReferalsActivity extends ActionBarActivity {
 
         MatrixCursor cursor = new MatrixCursor(matrix);
         int key=0;
-        cursor.addRow(new Object[] { key++, referal, status });
-        cursor.addRow(new Object[] { key++, referal, status });
+        for(int i=0; i<names.size(); i++) {
+            cursor.addRow(new Object[]{key++, names.get(i), status.get(i)});
+        }
 
         SimpleCursorAdapter data =
                 new SimpleCursorAdapter(this,
