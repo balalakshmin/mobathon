@@ -23,18 +23,23 @@ import java.util.List;
 /**
  * Created by SONY on 7/30/2015.
  */
-public class SendReferal extends AsyncTask<Void, Integer, String> {
+public class SendAddress extends AsyncTask<Void, Integer, String> {
 
     Context context;
     String name;
-    String phno;
-    String senderId;
+    String street;
+    String landmark;
+    String location;
+    String pincode;
 
-    public SendReferal(Context mContext, String name, String phno, String senderId) {
+
+    public SendAddress(Context mContext, String name, String street, String location, String landmark, String pincode) {
         this.context = mContext;
         this.name = name;
-        this.phno = phno;
-        this.senderId = senderId;
+        this.street = street;
+        this.location = location;
+        this.landmark = landmark;
+        this.pincode = pincode;
     }
 
     @Override
@@ -60,11 +65,13 @@ public class SendReferal extends AsyncTask<Void, Integer, String> {
         {
             /** make a network call with latest time in db */
             HttpClient httpClient=new DefaultHttpClient();
-            HttpPost httpPost=new HttpPost("http://192.168.43.15/Mobathon/createreferal.php");
+            HttpPost httpPost=new HttpPost("http://192.168.43.15/Mobathon/verifyaddress.php");
             List<NameValuePair> list=new ArrayList<NameValuePair>();
             list.add(new BasicNameValuePair("name", name));
-            list.add(new BasicNameValuePair("phno", phno));
-            list.add(new BasicNameValuePair("referedby", senderId));
+            list.add(new BasicNameValuePair("street", street));
+            list.add(new BasicNameValuePair("landmark", landmark));
+            list.add(new BasicNameValuePair("location", location));
+            list.add(new BasicNameValuePair("pincode", pincode));
 
             httpPost.setEntity(new UrlEncodedFormEntity(list));
             HttpResponse httpResponse=	httpClient.execute(httpPost);

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.contest.mobathon.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,8 +57,6 @@ public class ReferalsActivity extends ActionBarActivity {
 
     private void initListView()
     {
-        final String   referal    = "Referral person";
-        final String   status = "Status";
 
         final String[] matrix  = { "_id", "name", "value" };
         final String[] columns = { "name", "value" };

@@ -1,25 +1,51 @@
 package com.contest.mobathon.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.contest.mobathon.AsyncTask.SendReferal;
 import com.contest.mobathon.R;
+import com.contest.mobathon.dao.ReferalDAO;
 import com.rey.material.app.Dialog;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.widget.FloatingActionButton;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.TypeFactory;
+import org.codehaus.jackson.type.TypeReference;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SONY on 7/29/2015.
@@ -34,6 +60,8 @@ public class UserActivity extends ActionBarActivity {
     private String[] referals;
     private String[] status;
     private SessionManager session;
+    private String sessionId;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity);
@@ -43,6 +71,9 @@ public class UserActivity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Your referals");
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        sessionId = sessionManager.getUserDetails().get("id");
 
         list = (ListView) findViewById(R.id.referals_list2);
 
@@ -116,6 +147,7 @@ public class UserActivity extends ActionBarActivity {
                         @Override
                         public void onPositiveActionClicked(DialogFragment fragment) {
                             Toast.makeText(getApplicationContext(), "name : " + name + "Number: " + number, Toast.LENGTH_LONG).show();
+                            new SendReferal(UserActivity.this, name, number, sessionId).execute();
                             super.onPositiveActionClicked(fragment);
                         }
 
@@ -124,6 +156,8 @@ public class UserActivity extends ActionBarActivity {
                             super.onNegativeActionClicked(fragment);
                         }
                     };
+
+                    initListView();
 
                     ((SimpleDialog.Builder) builder).message(name + "\n" + number)
                             .title("Refer")
@@ -135,16 +169,8 @@ public class UserActivity extends ActionBarActivity {
                 break;
         }
     }
-    private void initListView()
-    {
-        final String   referal    = "Referral person";
-        final String   status = "Status";
 
-        final String[] matrix  = { "_id", "name", "value" };
-        final String[] columns = { "name", "value" };
-        final int[]    layouts = { android.R.id.text1, android.R.id.text2 };
-
-    public class TableData extends AsyncTask<Void, Integer, String> {
+    class TableData extends AsyncTask<Void, Integer, String> {
 
         Context mContext;
         private boolean internetcon;
@@ -173,15 +199,13 @@ public class UserActivity extends ActionBarActivity {
                 ObjectMapper objectMapper = new ObjectMapper();
                 TypeFactory typeFactory;
                 try {
-                    List<ReferalDAO> referal = objectMapper.readValue(result, new TypeReference<List<ReferalDAO>>() {
-                    });
+                    List<ReferalDAO> referal = objectMapper.readValue(result, new TypeReference<List<ReferalDAO>>() { });
 
-                    SessionManager sessionManager = new SessionManager(getApplicationContext());
-                    String sessionName = sessionManager.getUserDetails().get("name");
-                    referals = new String[referal.size()];
-                    status = new String[referal.size()];
                     for(int i=0,k=0; i<referal.size(); i++) {
-                        if(sessionName.equals(referal.get(i).getName())) {
+
+                        referals = new String[referal.get(i).getReferals().size()];
+                        status = new String[referal.get(i).getReferals().size()];
+                        if(sessionId.equals(referal.get(i).getId())) {
                             while(k<referal.get(i).getReferals().size()) {
                                 referals[k] = referal
                                         .get(i)
@@ -191,6 +215,7 @@ public class UserActivity extends ActionBarActivity {
                                 status[k] = referal.get(i).getReferals().get(k).get("status");
                                 k++;
                             }
+                            break;
                         }
                     }
                     initListView();

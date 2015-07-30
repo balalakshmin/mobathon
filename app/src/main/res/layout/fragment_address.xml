@@ -27,6 +27,7 @@
         app:et_inputId="@+id/textfield_et_label_input"
         app:et_supportMode="none"
         style="@style/Material.Widget.EditText"
+        android:textColor="@color/navigationBarColor"
         android:layout_alignBottom="@+id/textView1"
         android:layout_alignStart="@+id/street" />
 
@@ -49,6 +50,7 @@
         android:paddingRight="10dp"
         app:et_inputId="@+id/textfield_et_label_input"
         app:et_supportMode="none"
+        android:textColor="@color/navigationBarColor"
         style="@style/Material.Widget.EditText"
         android:layout_alignBottom="@+id/textView"
         android:layout_toEndOf="@+id/textView2" />
@@ -70,6 +72,7 @@
         android:inputType="text"
         android:paddingRight="10dp"
         app:et_inputId="@+id/textfield_et_label_input"
+        android:textColor="@color/navigationBarColor"
         app:et_supportMode="none"
         style="@style/Material.Widget.EditText"
         android:layout_alignBottom="@+id/textView2"
@@ -92,6 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
+        android:textColor="@color/navigationBarColor"
         android:paddingRight="10dp"
         app:et_inputId="@+id/textfield_et_label_input"
         app:et_supportMode="none"
@@ -120,6 +124,7 @@
         app:et_inputId="@+id/textfield_et_label_input"
         app:et_supportMode="none"
         style="@style/Material.Widget.EditText"
+        android:textColor="@color/navigationBarColor"
         android:layout_alignBottom="@+id/textView4"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/location" />
@@ -155,6 +160,14 @@
         android:layout_below="@+id/pincode"
         android:layout_alignStart="@+id/pincode" />
 
+    <com.rey.material.widget.Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="@color/navigationBarColor"
+        android:id="@+id/submit"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

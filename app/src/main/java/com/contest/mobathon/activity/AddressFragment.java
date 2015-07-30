@@ -17,8 +17,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.contest.mobathon.AsyncTask.SendAddress;
 import com.contest.mobathon.R;
 import com.rey.material.widget.Button;
+import com.rey.material.widget.CheckBox;
+import com.rey.material.widget.EditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,6 +52,31 @@ public class AddressFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_address, container, false);
         ivImage = (ImageView) view.findViewById(R.id.image);
         Button button = (Button) view.findViewById(R.id.button);
+        Button submit = (Button) view.findViewById(R.id.submit);
+        final EditText nametv = (EditText) view.findViewById(R.id.name);
+        final EditText streettv = (EditText) view.findViewById(R.id.street);
+        final EditText locationtv = (EditText) view.findViewById(R.id.location);
+        final EditText pincodetv = (EditText) view.findViewById(R.id.pincode);
+        final EditText landmarktv = (EditText) view.findViewById(R.id.landmark);
+        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.switches_cb1);
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkBox.isChecked()) {
+                    final String name = nametv.getText().toString();
+                    final String street = streettv.getText().toString();
+                    final String location = locationtv.getText().toString();
+                    final String pincode = pincodetv.getText().toString();
+                    final String landmark = landmarktv.getText().toString();
+                    new SendAddress(getActivity(), name, street, landmark, location, pincode).execute();
+                }
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Please check the box", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
