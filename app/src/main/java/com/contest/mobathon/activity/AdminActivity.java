@@ -63,6 +63,7 @@ public class AdminActivity extends ActionBarActivity {
     private ArrayList<String> names;
     private ArrayList<String> status;
     private SessionManager session;
+    private List<ReferalDAO> referal;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,7 +130,7 @@ public class AdminActivity extends ActionBarActivity {
                     ObjectMapper objectMapper = new ObjectMapper();
                     TypeFactory typeFactory;
                     try {
-                        List<ReferalDAO> referal = objectMapper.readValue(result, new TypeReference<List<ReferalDAO>>() { });
+                        referal = objectMapper.readValue(result, new TypeReference<List<ReferalDAO>>() { });
                         for(int i=0,a=0,b=0,c=0; i<referal.size(); i++) {
                             if(Integer.parseInt(referal.get(i).getTotal_purchase())>10000000) {
                                 labels1.add(referal.get(i).getName());
@@ -148,13 +149,7 @@ public class AdminActivity extends ActionBarActivity {
                                 entries3.add(new Entry(Float.parseFloat(referal.get(i).getPoints()),c));
                                 c++;
                             }
-                            referals = referal.get(i).getReferals();
-                            names = new ArrayList<String>();
-                            status = new ArrayList<String>();
-                            for(int k=0; k<referals.size(); k++) {
-                                names.add(referals.get(k).get("name"));
-                                status.add(referals.get(k).get("status"));
-                            }
+
                         }
                         setDataSet();
                         setClickListener(platinumChart, labels1);
@@ -175,13 +170,28 @@ public class AdminActivity extends ActionBarActivity {
                         int idx = e.getXIndex();
                         String name = label.get(idx);
                         int points = ((int) e.getVal());
+                        names = new ArrayList<String>();
+                        status = new ArrayList<String>();
                         Intent intent = new Intent(getApplicationContext(), ReferalsActivity.class);
-                        intent.putExtra("name", name);
-                        intent.putExtra("points", points);
-                        intent.putExtra("refnames",names);
-                        intent.putExtra("status",status);
+                        for(int i=0,k=0; i<referal.size(); i++) {
+                            if(name==referal.get(i).getName()) {
+                                while(referal.get(i).getReferals()!=null && k<referal.get(i).getReferals().size()) {
+                                    names.add(referal.get(i).getReferals().get(k).get("name"));
+                                    status.add(referal.get(i).getReferals().get(k).get("status"));
+                                    k++;
+                                }
+                                break;
+                            }
+                        }
 
-                        startActivity(intent);
+                        if(names!=null && status!=null) {
+                            intent.putExtra("name", name);
+                            intent.putExtra("points", points);
+                            intent.putExtra("refnames", names);
+                            intent.putExtra("status", status);
+
+                            startActivity(intent);
+                        }
 
                     }
                 }
@@ -198,10 +208,10 @@ public class AdminActivity extends ActionBarActivity {
             PieDataSet dataset1 = new PieDataSet(entries1, "platinum");
             dataset1.setColors(ColorTemplate.VORDIPLOM_COLORS);
             PieData pieData1 = new PieData(labels1, dataset1);
-            PieDataSet dataset2 = new PieDataSet(entries2, "platinum");
+            PieDataSet dataset2 = new PieDataSet(entries2, "gold");
             dataset2.setColors(ColorTemplate.JOYFUL_COLORS);
             PieData pieData2 = new PieData(labels2, dataset2);
-            PieDataSet dataset3 = new PieDataSet(entries3, "platinum");
+            PieDataSet dataset3 = new PieDataSet(entries3, "normal");
             dataset3.setColors(ColorTemplate.LIBERTY_COLORS);
             PieData pieData3 = new PieData(labels3, dataset3);
 
