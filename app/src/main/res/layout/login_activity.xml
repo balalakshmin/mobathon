@@ -17,7 +17,8 @@
         android:layout_below="@+id/editText1"
         android:layout_marginTop="25dp"
         android:ems="10"
-        android:inputType="textPassword" >
+        android:inputType="textPassword"
+        android:textColor="#000">
     </EditText>
 
     <EditText
@@ -27,7 +28,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="44dp"
-        android:ems="10" >
+        android:ems="10"
+        android:textColor="#000">
 
         <requestFocus android:layout_width="wrap_content" />
 

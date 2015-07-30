@@ -74,7 +74,8 @@ public class ReferFragment extends Fragment {
             Toast.makeText(getActivity(),userLoginDao.getError_msg(),Toast.LENGTH_LONG).show();
         }
         else {
-            session.createLoginSession(userLoginDao.getUser().get("name"), userLoginDao.getUser().get("email"));
+            session.createLoginSession(userLoginDao.getUid(),
+                    userLoginDao.getUser().get("name"), userLoginDao.getUser().get("email"));
             if(userLoginDao.getUser().get("admin").equals("1")) {
                 Toast.makeText(getActivity(),"admin logged in",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),AdminActivity.class);
