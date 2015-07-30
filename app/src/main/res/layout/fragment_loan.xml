@@ -1,31 +1,140 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.contest.mobathon.activity.LoanFragment">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tenure (Months)"
+        android:paddingTop="20dp"
+        android:id="@+id/textView1"
+        android:textSize="16dp"
+        android:paddingLeft="10dp"
+        android:layout_alignParentStart="true" />
 
+    <com.rey.material.widget.EditText
+        android:id="@+id/month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toEndOf="@+id/textView1"
+        android:layout_alignStart="@+id/loanamt" />
 
     <TextView
-        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loan Amount"
+        android:id="@+id/textView"
+        android:textSize="16dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="75dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
-        android:layout_width="fill_parent"
+        android:layout_alignParentStart="true" />
+
+    <com.rey.material.widget.EditText
+        android:id="@+id/loanamt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="45dp"
-        android:text="HOME"
-        android:textStyle="bold"/>
+        android:inputType="number"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toEndOf="@+id/textView1"
+        android:layout_alignStart="@+id/interest" />
 
     <TextView
-        android:layout_below="@id/label"
-        android:layout_centerInParent="true"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="Edit fragment_friends.xml to change the appearance" />
+        android:text="Interest Rate"
+        android:id="@+id/textView2"
+        android:textSize="16dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="43dp" />
+    <com.rey.material.widget.EditText
+        android:id="@+id/interest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_alignStart="@+id/salary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monthly Salary"
+        android:paddingLeft="10dp"
+        android:textSize="16dp"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="47dp" />
+
+    <com.rey.material.widget.EditText
+        android:id="@+id/salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/totemi" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content"
+        android:text="Total Monthly EMI's"
+        android:textSize="16dp"
+        android:layout_below="@+id/textView3"
+        android:id="@+id/textView4"
+        android:layout_marginTop="47dp"
+        android:layout_alignStart="@+id/textView3" />
+
+    <com.rey.material.widget.EditText
+        android:id="@+id/totemi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:paddingRight="10dp"
+        app:et_inputId="@+id/textfield_et_label_input"
+        app:et_supportMode="none"
+        style="@style/Material.Widget.EditText"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView4" />
+
+    <com.rey.material.widget.Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate Eligiblity"
+        android:textColor="@color/navigationBarColor"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp" />
+
 
 </RelativeLayout>
 

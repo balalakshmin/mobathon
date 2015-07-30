@@ -92,6 +92,7 @@ public class SessionManager {
         // user name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
 
+        user.put(KEY_ID, pref.getString(KEY_ID,null));
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
