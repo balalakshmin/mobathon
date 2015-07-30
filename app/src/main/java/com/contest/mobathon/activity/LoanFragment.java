@@ -2,12 +2,14 @@ package com.contest.mobathon.activity;
 
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.contest.mobathon.R;
 import com.rey.material.widget.Button;
@@ -28,7 +30,7 @@ public class LoanFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_loan, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_loan, container, false);
         final com.rey.material.widget.EditText month,loan, interest,salary,emi;
         month = (com.rey.material.widget.EditText) rootView.findViewById(R.id.month) ;
         loan = (com.rey.material.widget.EditText) rootView.findViewById(R.id.loanamt);
@@ -36,6 +38,11 @@ public class LoanFragment extends Fragment {
         salary = (com.rey.material.widget.EditText) rootView.findViewById(R.id.salary);
         emi = (com.rey.material.widget.EditText) rootView.findViewById(R.id.totemi);
         Button button = (Button) rootView.findViewById(R.id.button);
+        final TextView  textView5 = (TextView) rootView.findViewById(R.id.textView5);
+        final TextView  textView6 = (TextView) rootView.findViewById(R.id.textView6);
+        final TextView  textView7 = (TextView) rootView.findViewById(R.id.textView7);
+        final TextView  textView8 = (TextView) rootView.findViewById(R.id.textView8);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +59,22 @@ public class LoanFragment extends Fragment {
                 si = Integer.parseInt(s);
                 ei = Integer.parseInt(e);
                 loan = (si - ei)*mi;
-                
+                simpleInterest = (loan*mi*ii)/100;
+                loan-=simpleInterest;
+                textView5.setVisibility(View.VISIBLE);
+                if(loan>=li) {
+                    textView6.setText("Yes");
+                    textView6.setTextColor(Color.GREEN);
+                }
+                else {
+                    textView6.setText("No");
+                    textView6.setTextColor(Color.RED);
+                }
+                textView6.setVisibility(View.VISIBLE);
+                textView7.setVisibility(View.VISIBLE);
+                textView8.setText(""+loan);
+                textView8.setVisibility(View.VISIBLE);
+
             }
         });
 

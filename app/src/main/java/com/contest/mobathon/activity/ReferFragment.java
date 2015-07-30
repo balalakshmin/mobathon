@@ -65,8 +65,6 @@ public class ReferFragment extends Fragment {
         passwordField = (EditText)view.findViewById(R.id.editText2);
         loginButton = (Button) view.findViewById(R.id.button1);
         Toast.makeText(getActivity().getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
-        status = (TextView)view.findViewById(R.id.textView6);
-        role = (TextView)view.findViewById(R.id.textView7);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +86,7 @@ public class ReferFragment extends Fragment {
             session.createLoginSession(userLoginDao.getUid(),
                     userLoginDao.getUser().get("name"), userLoginDao.getUser().get("email"));
             if(userLoginDao.getUser().get("admin").equals("1")) {
-                Toast.makeText(getActivity(),"admin logged in",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Admin logged in",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(),AdminActivity.class);
                 startActivity(intent);
             }
@@ -101,14 +99,11 @@ public class ReferFragment extends Fragment {
         }
     }
     public class SigninActivity  extends AsyncTask<String,Void,String> {
-        private TextView statusField,roleField;
         private Context context;
 
         //flag 0 means get and 1 means post.(By default it is get.)
         public SigninActivity(Context context,TextView statusField,TextView roleField) {
             this.context = context;
-            this.statusField = statusField;
-            this.roleField = roleField;
         }
 
         protected void onPreExecute(){
@@ -157,9 +152,7 @@ public class ReferFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result){
-            this.statusField.setText("Login Successful");
             ObjectMapper mapper = new ObjectMapper();
-            this.roleField.setText(result);
             try {
                 UserLoginDao userLoginDao= mapper.readValue(result,UserLoginDao.class);
                 System.out.println(userLoginDao);
