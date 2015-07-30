@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.contest.mobathon.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ public class ReferalsActivity extends ActionBarActivity {
 
     private Toolbar mToolbar;
     private ListView list;
+    private ArrayList<String> names;
+    private ArrayList<String> status;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,8 @@ public class ReferalsActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         String name = extras.getString("name");
         int point = extras.getInt("points");
+        names = extras.getStringArrayList("refnames");
+        status = extras.getStringArrayList("status");
 
         userName.setText(name);
         points.setText(Integer.toString(point));
@@ -48,8 +53,6 @@ public class ReferalsActivity extends ActionBarActivity {
 
     private void initListView()
     {
-        final String   referal    = "Referral person";
-        final String   status = "Status";
 
         final String[] matrix  = { "_id", "name", "value" };
         final String[] columns = { "name", "value" };
@@ -57,9 +60,9 @@ public class ReferalsActivity extends ActionBarActivity {
 
         MatrixCursor cursor = new MatrixCursor(matrix);
         int key=0;
-        cursor.addRow(new Object[] { key++, referal, status });
-        cursor.addRow(new Object[] { key++, referal, status });
-
+        for(int i=0; i<names.size(); i++) {
+            cursor.addRow(new Object[]{key++, names.get(i), status.get(i)});
+        }
         SimpleCursorAdapter data =
                 new SimpleCursorAdapter(this,
                         R.layout.viewlist_two_items,
