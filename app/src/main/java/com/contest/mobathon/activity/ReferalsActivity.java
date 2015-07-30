@@ -5,13 +5,14 @@ import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.contest.mobathon.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,10 +24,12 @@ public class ReferalsActivity extends ActionBarActivity {
     private ListView list;
     private ArrayList<String> names;
     private ArrayList<String> status;
+    SessionManager session;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.referals_activity);
+        session = new SessionManager(getApplicationContext());
 
         mToolbar = (Toolbar) findViewById(R.id.referel_toolbar);
         setSupportActionBar(mToolbar);
@@ -53,6 +56,8 @@ public class ReferalsActivity extends ActionBarActivity {
 
     private void initListView()
     {
+        final String   referal    = "Referral person";
+        final String   status = "Status";
 
         final String[] matrix  = { "_id", "name", "value" };
         final String[] columns = { "name", "value" };
@@ -63,6 +68,7 @@ public class ReferalsActivity extends ActionBarActivity {
         for(int i=0; i<names.size(); i++) {
             cursor.addRow(new Object[]{key++, names.get(i), status.get(i)});
         }
+
         SimpleCursorAdapter data =
                 new SimpleCursorAdapter(this,
                         R.layout.viewlist_two_items,

@@ -1,18 +1,14 @@
 package com.contest.mobathon.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInstaller;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -20,31 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.contest.mobathon.R;
-import com.contest.mobathon.dao.ReferalDAO;
-import com.github.mikephil.charting.data.Entry;
 import com.rey.material.app.Dialog;
 import com.rey.material.app.DialogFragment;
 import com.rey.material.app.SimpleDialog;
 import com.rey.material.widget.FloatingActionButton;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.TypeFactory;
-import org.codehaus.jackson.type.TypeReference;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by SONY on 7/29/2015.
@@ -58,10 +33,11 @@ public class UserActivity extends ActionBarActivity {
     private String number;
     private String[] referals;
     private String[] status;
+    private SessionManager session;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity);
-
+        session = new SessionManager(getApplicationContext());
         fab = (FloatingActionButton) findViewById(R.id.fab);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -84,11 +60,43 @@ public class UserActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if(!session.isLoggedIn()) {
+            menu.getItem(0).setEnabled(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        if(id == R.id.action_signout){
+            session.logoutUser();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
 
         switch (reqCode) {
-            case (PICK_CONTACT):
+            case (PICK_CONTACT) :
                 name = null;
                 number = null;
                 if (resultCode == Activity.RESULT_OK) {
@@ -104,7 +112,7 @@ public class UserActivity extends ActionBarActivity {
                         }
 
                     }
-                    Dialog.Builder builder = new SimpleDialog.Builder(R.style.Material_App_Dialog_Simple_Light) {
+                    Dialog.Builder builder = new SimpleDialog.Builder(R.style.Material_App_Dialog_Simple_Light){
                         @Override
                         public void onPositiveActionClicked(DialogFragment fragment) {
                             Toast.makeText(getApplicationContext(), "name : " + name + "Number: " + number, Toast.LENGTH_LONG).show();
@@ -118,16 +126,23 @@ public class UserActivity extends ActionBarActivity {
                     };
 
                     ((SimpleDialog.Builder) builder).message(name + "\n" + number)
-                            .title("Send Referal")
+                            .title("Refer")
                             .positiveAction("OK")
                             .negativeAction("CANCEL");
                     DialogFragment fragment = DialogFragment.newInstance(builder);
                     fragment.show(getSupportFragmentManager(), null);
-                }
+                 }
                 break;
         }
     }
+    private void initListView()
+    {
+        final String   referal    = "Referral person";
+        final String   status = "Status";
 
+        final String[] matrix  = { "_id", "name", "value" };
+        final String[] columns = { "name", "value" };
+        final int[]    layouts = { android.R.id.text1, android.R.id.text2 };
 
     public class TableData extends AsyncTask<Void, Integer, String> {
 
@@ -253,5 +268,4 @@ public class UserActivity extends ActionBarActivity {
         list.setAdapter(data);
 
     }
-
 }

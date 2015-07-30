@@ -48,8 +48,19 @@ public class ReferFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view= inflater.inflate(R.layout.login_activity, container, false);
         session = new SessionManager(getActivity().getApplicationContext());
+        if(session.isLoggedIn()){
+            if(session.getUserDetails().get("name").equals("admin")){
+                Intent intent = new Intent(getActivity(),AdminActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(getActivity(),UserActivity.class);
+                startActivity(intent);
+            }
+        }
+        View view= inflater.inflate(R.layout.login_activity, container, false);
+
         usernameField = (EditText)view.findViewById(R.id.editText1);
         passwordField = (EditText)view.findViewById(R.id.editText2);
         loginButton = (Button) view.findViewById(R.id.button1);
